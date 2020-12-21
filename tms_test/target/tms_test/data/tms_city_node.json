@@ -1,0 +1,23 @@
+{
+    "cityNode": [ 
+        {
+            "id":1,
+            "cityName":"长沙",
+            "cityNodes":[ 
+                {"id":1,"nodeName":"长沙小宝"},
+                {"id":2,"nodeName":"长沙大宝"} 
+            ]
+        },
+        {
+            "id":2,
+            "cityName":"广州",
+            "cityNodes":[
+                {"id":1,"nodeName":"广州小宝"},
+                {"id":2,"nodeName":"广州大宝"},
+                {"id":2,"nodeName":"广州天河"}
+             ]
+        }
+    
+    ]
+
+}

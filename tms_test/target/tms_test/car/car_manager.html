@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>车型 管理</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        label.xrequired::before {
+            content: '*';
+            color: red;
+        }
+
+        .margin {
+            margin-top: 5px;
+        }
+
+        .margin1 {
+            margin-left: -80px;
+        }
+
+        .btn1 {
+            margin-left: 50px;
+        }
+
+        .btn2 {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="margin-top: 10px;" id="myModal">
+        <form class="form-inline">
+            <div>
+                <label class="col-sm-1 control-label margin">车型:</label>
+                <div class="col-sm-1  margin1">
+                    <!-- 此选择框的数据是要通过查询数据库的 -->
+                    <select class="form-control" name="car_type" id="car_type">
+                        <option v-for="carType in carTypes" :value="carType.id">{{carType.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" class="btn btn-info btn1">查询</button>
+            <!-- 弹出一个当前页面的HTML片断 片断的id为myModal -->
+            <button type="button" class="btn btn-warning btn2" data-toggle="modal" data-target="#myModal1"
+                onclick="loadOrgName()">新建车型</button>
+        </form>
+    </div>
+    <hr>
+    <div>
+        <table class="table table-stripted table-bordered table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th>状态</th>
+                    <th>车型</th>
+                    <th>标准容积（立方米）</th>
+                    <th>标准载重（吨）</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>正常</td>
+                    <td>7米2</td>
+                    <td>40.000</td>
+                    <td>40.50</td>
+                    <td></td>
+                    <td>[<a href="" data-toggle="modal" data-target="#myModal2" onclick="loadOrgName()">修改</a>][<a
+                            href="">作废</a>]</td>
+                </tr>
+                <tr class="danger">
+                    <td>已作废</td>
+                    <td>9米6</td>
+                    <td>50.000</td>
+                    <td>50.50</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 弹出的模态框 -->
+    <div class="modal fade" id="myModal1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- 头部 -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新建车型</h4>
+                </div>
+                <!--身体 -->
+                <div class="modal-body">
+                    <!-- 需要填的内容 -->
+                    <div>
+                        <form class="form-horizontal">
+                            <fieldset title="新建车型">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label xrequired ">车型</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="f_city_type" name="f_city_type">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label xrequired">标准容积</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="f_city_volume" name="f_city_lolume">
+                                        <span>立方米</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label xrequired">标准载重</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="f_car_load" name="f_car_load">
+                                        <span>吨</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">备注</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="node_comments" id="node_comments" cols="60" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <!--脚-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹出修改的模态框 -->
+    <div class="modal fade" id="myModal2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- 头部 -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改车型</h4>
+                </div>
+                <!--身体 -->
+                <div class="modal-body">
+                    <!-- 需要填的内容 -->
+                    <div>
+                        <form class="form-horizontal">
+                            <fieldset title="修改车型">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label ">车型</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="f_city_type" name="f_city_type" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label xrequired">标准容积</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="f_city_volume" name="f_city_lolume">
+                                        <span>立方米</span>
+                                    </div>
+                                    <label></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label xrequired">标准载重</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="f_car_load" name="f_car_load">
+                                        <span>吨</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">备注</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="node_comments" id="node_comments" cols="60" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <!--脚-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/tms_test/js/jquery-3.5.1.js"></script>
+<script src="/tms_test/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+    var myModalVue = new Vue({
+        el: '#myModal',
+        data: {
+
+            "carTypes": []
+        },
+        mounted: function () {
+            var _self = this;
+            $.get("/tms_test/data/tms_car_type.json", function (carTypeData) {
+                console.log(this)
+                _self.carTypes = carTypeData.carType
+            }, "json")
+        }
+    })
+
+    //Vue
+    function loadOrgName() {
+
+    }
+</script>
+
+</html>

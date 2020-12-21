@@ -1,0 +1,7 @@
+{
+    "operators": [ 
+        {"id":1,"cityName":"顺丰速递"},
+        {"id":2,"cityName":"京东快递"},
+        {"id":3,"cityName":"圆通快递"}
+    ]
+}

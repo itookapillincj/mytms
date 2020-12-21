@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点管理</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+<div id="app">
+    <div>
+        <span>所在城市</span>
+        <select name="city_name" id="city_name" v-model="NodeInfo.city_name">
+            <option v-for="org01 in citys1" :value="org01.city_name">{{org01.city_name}}</option>
+        </select>
+        <span>节点类型</span>
+        <select name="node_type" id="node_type" v-model="NodeInfo.node_type">
+            <option v-for="org02 in node01" :value="org02.node_type">{{org02.node_type}}</option>
+        </select>
+        <span>节点名称</span>
+        <input type="text" name="node_name1" id="node_name1" v-model="NodeInfo.node_name">
+        <button type="button" class="btn btn-info" @click="pageNodeInfo()">查询</button>
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">新建节点信息</button>
+    </div>
+    <hr>
+
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <template v-for="item in city_hd">
+                    <th>{{item}}</th>
+                </template>
+                <th><input type="checkbox">全选/全不选</th>
+            </tr>
+            </thead>
+            <tbody>
+            <template v-for="(node,index) in pageInfo">
+                <tr>
+                    <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateModal"
+                    >修改</button><button type="button" class="btn btn-warning">作废</button></td>
+                    <td>
+                        <template v-if="node.node_state==1">正常</template>
+                        <template v-else>已作废</template>
+                        <input type="hidden" v-model="node.node_state">
+                    </td>
+                    <td>{{node.city_code}}</td>
+                    <td>{{node.city_name}}</td>
+                    <td>{{node.org_name}}</td>
+                    <td>{{node.d_center}}</td>
+                    <td>{{node.node_type}}</td>
+                    <td>{{node.node_name}}</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+            </template>
+
+            </tbody>
+        </table>
+    </div>
+    <!-- 弹出新建节点模态框 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- 头部 -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新建节点信息</h4>
+                </div>
+                <!--身体 -->
+                <div class="modal-body">
+                    <!-- 需要填的内容 -->
+                    <div>
+                        <fieldset>
+                            <form>
+                                <div>
+                                    <span>城市名称:</span>
+                                    <select name="city_name" id="city_name1" v-model="Node.city_name">
+                                        <option v-for="org01 in citys1" :value="org01.city_name">{{org01.city_name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <span>机构&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span>
+                                    <input type="text" name="org_name" id="org_name" style="background-color: darkgray;" disabled>
+                                </div>
+                                <div>
+                                    <span>节点类型:</span>
+                                    <select name="node_type" id="node_type1" style="width: 175px;" v-model="Node.node_type">
+                                        <option v-for="org02 in node01" :value="org02.node_type">{{org02.node_type}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <span>节点代码:</span>
+                                    <input type="text" name="node_code" id="node_code" style="background-color: darkgray;" disabled>
+                                </div>
+                                <div>
+                                    <span>节点名称:</span>
+                                    <input type="text" name="node_name" id="node_name" v-model="Node.node_name">
+                                </div>
+                                <div>
+                                    <span>备注:</span>
+                                    <textarea name="node_comments" id="node_comments" cols="60" rows="10" v-model="Node.node_remark"></textarea>
+                                </div>
+                                <!-- <div>
+                        <button type="button" class="btn btn-info">保存</button>
+                        <button type="button" class="btn btn-info">关闭</button>
+                    </div> -->
+                            </form>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" @click="addMannagerNode()">创建</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 弹出的修改节点信息模态框 -->
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- 头部 -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="updateModalLabel">新建节点信息</h4>
+                </div>
+                <!--身体 -->
+                <div class="modal-body">
+                    <!-- 需要填的内容 -->
+                    <div>
+                        <fieldset>
+                            <form>
+                                <div>
+                                    <span>城市名称:</span>
+                                    <select name="city_name" id="city_name2" v-model="Node.city_name">
+                                        <option v-for="org01 in citys1" :value="org01.city_name">{{org01.city_name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <span>机构&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span>
+                                    <input type="text" name="org_name" id="org_name2" style="background-color: darkgray;" disabled>
+                                </div>
+                                <div>
+                                    <span>节点类型:</span>
+                                    <select name="node_type" id="node_type12" style="width: 175px;" v-model="Node.node_type">
+                                        <option v-for="org02 in node01" :value="org02.node_type">{{org02.node_type}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <span>节点代码:</span>
+                                    <input type="text" name="node_code" id="node_code2" style="background-color: darkgray;" disabled>
+                                </div>
+                                <div>
+                                    <span>节点名称:</span>
+                                    <input type="text" name="node_name" id="node_name2" v-model="Node.node_name">
+                                </div>
+                                <div>
+                                    <span>备注:</span>
+                                    <textarea name="node_comments" id="node_comments2" cols="60" rows="10" v-model="Node.node_remark"></textarea>
+                                </div>
+                                <!-- <div>
+                        <button type="button" class="btn btn-info">保存</button>
+                        <button type="button" class="btn btn-info">关闭</button>
+                    </div> -->
+                            </form>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" @click="addMannagerNode()">创建</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 分页-->
+    <nav aria-label="Page navigation" style="text-align: center;">
+        <ul class="pagination">
+            <li :class="NodeInfo.pageNo==1?'disabled':''" @click="prePage()">
+                <a aria-label="Previous">
+                    <span aria-hidden="true" style="cursor: pointer">&laquo;</span>
+                </a>
+            </li>
+            <li :class="index==NodeInfo.pageNo?'active':''" v-for="index in totalPag" @click="curPage(index)">
+                <a>{{index}}</a>
+            </li>
+            <li :class="NodeInfo.pageNo==totalPag?'disabled':''" @click="nextPage()">
+                <a aria-label="Next">
+                    <span aria-hidden="true" style="cursor: pointer">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+<script src="/tms_test/js/jquery-3.5.1.js"></script>
+<script src="/tms_test/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var myModalVue = new Vue({
+        el: '#app',
+        data: {
+            city_hd: ['操作', '状态', '城市代码', '城市名称', '机构名称', '配送中心名称', '节点类型', '节点名称'],
+            "node01": "",
+            "citys1": "",
+            "totalPag": 1,//总页数
+            "rows": 1,//总条数
+            "pageInfo": "",
+            "NodeInfo": {
+                "pageNo": 1,//当前页数
+                "pageSize": 5,//固定条数
+                "city_name": "",
+                "node_type": "",
+                "node_name": ""
+            },
+            "Node":{
+                "node_name":"",
+                "node_type":"",
+                "city_name":"",
+                "node_remark":""
+            }
+        },
+        mounted: function () {
+            var _self = this;
+            $.get("/tms_test/tms_nodes", function (node) {
+                _self.node01 = node
+            }, "json")
+            $.get("/tms_test/tms_citys", function (citys) {
+                _self.citys1 = citys
+            }, "json")
+        },
+        methods: {
+            pageNodeInfo: function () {
+                _self = this
+                $.get("/tms_test/get_node", this.NodeInfo, function (pageNode) {
+                    _self.pageInfo = pageNode.list
+                    _self.totalPag = pageNode.totalPages
+                    _self.rows = pageNode.totalRecords
+                }, "json")
+            },
+            //当前页
+            curPage: function (index) {
+                this.NodeInfo.pageNo = index;
+                this.pageNodeInfo();
+            },
+            //上一页
+            prePage: function () {
+                if (this.NodeInfo.pageNo > 1) {
+                    this.NodeInfo.pageNo--;
+                    this.pageNodeInfo();
+                }
+
+            },
+            //下一页
+            nextPage: function () {
+                if (this.NodeInfo.pageNo < this.totalPag) {
+                    this.NodeInfo.pageNo++;
+                    this.pageNodeInfo();
+                }
+            },
+            addMannagerNode:function () {
+                _self=this
+                $.post("/tms_test/add_node",this.Node,function (result) {
+                    if (result.msg=='success') {
+                        alert("创建成功")
+                    }else {
+                        alert("创建失败")
+                    }
+                },'json')
+                $('#myModal').modal('hide');
+            },
+        }
+    })
+</script>
+
+</html>

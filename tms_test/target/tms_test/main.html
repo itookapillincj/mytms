@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <style>
+      .username{
+          float: right;
+      }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <a href="mopass.html">修改密码</a>
+    <a href="city/city_manager.html">城市管理</a>
+    <a href="node/node_manager.html">节点管理</a>
+    <a href="car/car_manager.html">车辆管理</a>
+    <a href="car/car_record.html">车辆备案</a>
+    <a href="cargo/cargo_manager.html">货物管理</a>
+    <a href="myaccount.html">我的账户</a>
+    <a href="register.html">系统管理</a>
+    <span class="username"><a href="#">当前用户：【{{acc_name}}】</a><a href="/tms_test/exit">【退出】</a></span>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+   // 如何使用js来获取cookie的值
+  //  读取属于当前文档的所有cookies
+    //var allcookies = document.cookie;
+    //定义一个函数，用来读取特定的cookie值。
+function getCookie(cookie_name)
+{
+    var allcookies = document.cookie;
+    var cookie_pos = allcookies.indexOf(cookie_name);   //索引的长度
+// 如果找到了索引，就代表cookie存在，
+// 反之，就说明不存在。
+    if (cookie_pos != -1)
+    {
+// 把cookie_pos放在值的开始，只要给值加1即可。
+        cookie_pos += cookie_name.length + 1;
+        var cookie_end = allcookies.indexOf(";", cookie_pos);
+        if (cookie_end == -1)
+        {
+            cookie_end = allcookies.length;
+        }
+    var value = unescape(allcookies.substring(cookie_pos, cookie_end));
+    }
+    return value;
+}
+    // 调用函数
+    var cookie_val = getCookie("acc_name");
+    console.log(document.cookie)
+    var myModalVue = new Vue({
+        el: '#app',
+        data: {
+            "acc_name":cookie_val==''?'未登录':cookie_val
+        }
+        })
+
+</script>
+</html>

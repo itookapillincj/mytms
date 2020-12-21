@@ -1,0 +1,10 @@
+北京=PEK
+上海虹桥=SHA
+上海浦东=PVG
+广州=CAN
+深圳=SZX
+成都=CTU
+海口=HAK
+南京=NKG
+重庆=CKG
+西安=XIY

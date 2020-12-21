@@ -1,0 +1,96 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>TMS</display-name>
+  <!--指定servlet路径 -->
+  <!--<servlet>-->
+    <!--<servlet-name>city_manager</servlet-name>-->
+    <!--<servlet-class></servlet-class>-->
+  <!--</servlet>-->
+  <!--定义一个映射路径（访问自定义Servlet的路径）-->
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>city_manager</servlet-name>-->
+    <!--<url-pattern>/add_city</url-pattern>-->
+  <!--</servlet-mapping>-->
+  <servlet>
+  <servlet-name>InitDataService</servlet-name>
+  <servlet-class>org.itcase.tms.service.InitDataService</servlet-class>
+    <init-param>
+      <param-name>a</param-name>
+      <param-value>132</param-value>
+    </init-param>
+    <init-param>
+      <param-name>b</param-name>
+      <param-value>321</param-value>
+    </init-param>
+    <init-param>
+      <param-name>c</param-name>
+      <param-value>GBK</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>InitNodeDataService</servlet-name>
+    <servlet-class>org.itcase.tms.service.InitNodeDataService</servlet-class>
+    <init-param>
+      <param-name>a</param-name>
+      <param-value>132</param-value>
+    </init-param>
+    <init-param>
+      <param-name>b</param-name>
+      <param-value>321</param-value>
+    </init-param>
+    <init-param>
+      <param-name>c</param-name>
+      <param-value>GBK</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <!--过滤器配置 -->
+  <filter>
+    <filter-name>loginfilter</filter-name>
+    <filter-class>org.itcase.tms.filter.LoginFilter</filter-class>
+    <init-param>
+      <param-name>path1</param-name>
+      <param-value>/tms_test/img/*</param-value>
+    </init-param>
+    <init-param>
+      <param-name>path2</param-name>
+      <param-value>/tms_test/css/*</param-value>
+    </init-param>
+    <init-param>
+      <param-name>path3</param-name>
+      <param-value>/tms_test/js/*</param-value>
+    </init-param>
+    <init-param>
+      <param-name>path4</param-name>
+      <param-value>/tms_test/login.html</param-value>
+    </init-param>
+    <init-param>
+      <param-name>path5</param-name>
+      <param-value>/tms_test/userlogin</param-value>
+    </init-param>
+    <init-param>
+      <param-name>path6</param-name>
+      <param-value>/tms_test/erre.html</param-value>
+    </init-param>
+    <init-param>
+      <param-name>path7</param-name>
+      <param-value>/tms_test/register.html</param-value>
+    </init-param>
+    <init-param>
+      <param-name>path8</param-name>
+      <param-value>/tms_test/regaccount</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginfilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!--<welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+  </welcome-file-list>-->
+</web-app>

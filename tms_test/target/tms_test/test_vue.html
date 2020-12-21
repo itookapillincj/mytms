@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="flag">
+            <span><a  onclick="tojson()">{{message}}</a></span>
+        </div>
+    </div>
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+   var vue=new Vue({
+       el:'#app',
+       data:{
+           flag:true,
+           message:'cuij'
+       }   
+   })
+
+    </script>
+<script>
+    function tojson() {
+        var str="x=1;y=2;z=3"
+        var json=JSON.parse(str)
+        return json
+
+    }
+     alert(tojson());
+</script>
+</html>

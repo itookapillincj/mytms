@@ -1,0 +1,6 @@
+{
+    "citys": [ 
+        {"id":1,"cityName":"长沙"},
+        {"id":2,"cityName":"广州"}
+    ]
+}

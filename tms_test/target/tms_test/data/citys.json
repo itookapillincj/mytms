@@ -1,0 +1,20 @@
+{
+    "carType": [
+        {"id":1,"state": "正常","cityCode":101,"cityName":"长沙","orgName":"仓库",
+            "dcName":"顺丰"},
+        {"id":2,"state": "已报废","cityCode":101,"cityName":"衡阳","orgName":"节点",
+            "dcName":"顺丰"},
+        {"id":3,"state": "正常","cityCode":101,"cityName":"张家界","orgName":"仓库",
+            "dcName":"顺丰"},
+        {"id":4,"state": "正常","cityCode":101,"cityName":"湘西","orgName":"节点",
+            "dcName":"顺丰"},
+        {"id":5,"state": "正常","cityCode":101,"cityName":"祁东","orgName":"仓库",
+            "dcName":"顺丰"},
+        {"id":6,"state": "已报废","cityCode":101,"cityName":"合肥","orgName":"节点",
+            "dcName":"顺丰"},
+        {"id":7,"state": "正常","cityCode":101,"cityName":"河南","orgName":"仓库",
+            "dcName":"顺丰"},
+        {"id":8,"state": "正常","cityCode":101,"cityName":"河北","orgName":"节点",
+            "dcName":"顺丰"}
+    ]
+}
